@@ -25,6 +25,39 @@ import java.sql.SQLException;
 public class ServiceDb {
 
     @POST
+    @Path("getView_page2_1_post")
+    @Produces("application/json")
+    public JSONObject getView_page2_1_post(@FormParam("request") String request) {
+        JSONObject jsonResult = new JSONObject();
+        try {
+            String SQL = "select * from View_page2_1 ";
+            DbConnector condb = new DbConnector();
+            Connection conn = condb.getConnection();
+            Statement m_Statement = conn.createStatement();
+            ResultSet rs = m_Statement.executeQuery(SQL);
+            
+            if (condb.getConnection() != null) {
+                JSONArray json_data = condb.convert(rs);
+                jsonResult.put("errorcode", "OK");
+                jsonResult.put("errormsg", "OK");
+                jsonResult.put("data", json_data);
+                File JSONOutputFile = new File("data.json");
+                PrintWriter writer = new PrintWriter(JSONOutputFile, "UTF-8");
+                writer.println(jsonResult);
+                writer.close();
+            } else {
+                jsonResult.put("errorcode", "SERVER_ERROR");
+                jsonResult.put("errormsg", "SERVER_ERROR");
+            }
+        } catch (Exception ex) {
+//            jsonResult.put("errorcode", "SERVER_ERROR");
+//            jsonResult.put("errormsg", "SERVER_ERROR");
+        }
+
+        return jsonResult;
+        }
+    
+    @GET
     @Path("getView_page2_1")
     @Produces("application/json")
     public JSONObject getView_page2_1(@FormParam("request") String request) {
@@ -58,12 +91,12 @@ public class ServiceDb {
         }
     
     @GET
-    @Path("getView_page2_1_2")
+    @Path("getView_page2_2")
     @Produces("application/json")
-    public JSONObject getView_page2_1_2() {
+    public JSONObject getView_page2_2() {
         JSONObject jsonResult = new JSONObject();
         try {
-            String SQL = "select * from View_page2_1 ";
+            String SQL = "select * from View_page2_2 ";
             DbConnector condb = new DbConnector();
             Connection conn = condb.getConnection();
             Statement m_Statement = conn.createStatement();
@@ -90,6 +123,43 @@ public class ServiceDb {
         return jsonResult;
         }
  
+    
+    
+    @GET
+    @Path("getView_page1")
+    @Produces("application/json")
+    public JSONObject getView_page1() {
+        JSONObject jsonResult = new JSONObject();
+        try {
+            String SQL = "select * from View_page1 ";
+            DbConnector condb = new DbConnector();
+            Connection conn = condb.getConnection();
+            Statement m_Statement = conn.createStatement();
+            ResultSet rs = m_Statement.executeQuery(SQL);
+            
+            if (condb.getConnection() != null) {
+                JSONArray json_data = condb.convert(rs);
+                jsonResult.put("errorcode", "OK");
+                jsonResult.put("errormsg", "OK");
+                jsonResult.put("data", json_data);
+                File JSONOutputFile = new File("data.json");
+                PrintWriter writer = new PrintWriter(JSONOutputFile, "UTF-8");
+                writer.println(jsonResult);
+                writer.close();
+            } else {
+                jsonResult.put("errorcode", "SERVER_ERROR");
+                jsonResult.put("errormsg", "SERVER_ERROR");
+            }
+        } catch (Exception ex) {
+//            jsonResult.put("errorcode", "SERVER_ERROR");
+//            jsonResult.put("errormsg", "SERVER_ERROR");
+        }
+
+        return jsonResult;
+        }
+ 
+    
+    
 //    @POST
 //    @Path("getLineBuilFac")
 //    @Produces("application/json")
