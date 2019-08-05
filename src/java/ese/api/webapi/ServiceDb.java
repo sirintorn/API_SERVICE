@@ -60,7 +60,7 @@ public class ServiceDb {
     @GET
     @Path("getView_page2_1")
     @Produces("application/json")
-    public JSONObject getView_page2_1(@FormParam("request") String request) {
+    public JSONObject getView_page2_1() {
         JSONObject jsonResult = new JSONObject();
         try {
             String SQL = "select * from View_page2_1 ";
